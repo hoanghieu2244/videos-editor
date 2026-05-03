@@ -1,4 +1,4 @@
-const projects = [
+const valorantProjects = [
   { video: 'https://youtu.be/_0Kgh3KXOD0' },
   { video: 'https://youtu.be/sK9A4SvIGg0' },
   { video: 'https://youtu.be/ypJoaA_WQvA' },
@@ -9,6 +9,11 @@ const projects = [
   { video: 'https://youtu.be/iqNxfTRCjvQ' },
   { video: 'https://youtu.be/RFPQnQbtgXM' },
   { video: 'https://youtu.be/TheQZWfPLAM' },
+]
+
+const adsProjects = [
+  // Thêm link video ADS vào đây
+  // { video: 'https://youtu.be/xxxxx' },
 ]
 
 const getYouTubeID = (url) => {
@@ -64,6 +69,16 @@ function VideoCard({ project }) {
   )
 }
 
+const VideoGrid = ({ projects }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+    {projects.map((project, i) => (
+      <div key={i} className={`${i % 3 === 0 ? 'md:col-span-2' : ''}`}>
+        <VideoCard project={project} />
+      </div>
+    ))}
+  </div>
+)
+
 export default function Projects() {
   return (
     <section id="projects" className="py-32 px-8 relative overflow-hidden">
@@ -72,29 +87,43 @@ export default function Projects() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent pointer-events-none" />
       
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Artistic title */}
-        <div className="text-center mb-20">
-          <div className="inline-block mb-4">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-400 inline-block mr-3 align-middle" />
-            <span className="text-purple-400 text-xs uppercase tracking-[0.3em] font-[var(--font-body)]">Portfolio</span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-400 inline-block ml-3 align-middle" />
+        {/* Valorant Section */}
+        <div className="mb-32">
+          <div className="text-center mb-20">
+            <div className="inline-block mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-red-400 inline-block mr-3 align-middle" />
+              <span className="text-red-400 text-xs uppercase tracking-[0.3em] font-[var(--font-body)]">Gaming</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-red-400 inline-block ml-3 align-middle" />
+            </div>
+            <h2 className="text-5xl md:text-7xl font-[var(--font-heading)] italic text-white tracking-tight leading-[0.9] mb-6">
+              Valorant
+            </h2>
+            <p className="text-white/40 font-[var(--font-body)] text-sm tracking-wide">
+              Gaming montage & creative edits
+            </p>
           </div>
-          <h2 className="text-5xl md:text-7xl font-[var(--font-heading)] italic text-white tracking-tight leading-[0.9] mb-6">
-            Sản phẩm
-          </h2>
-          <p className="text-white/40 font-[var(--font-body)] text-sm tracking-wide">
-            Nơi nghệ thuật và kỹ thuật gặp gỡ
-          </p>
+          <VideoGrid projects={valorantProjects} />
         </div>
 
-        {/* Creative video grid with staggered layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {projects.map((project, i) => (
-            <div key={i} className={`${i % 3 === 0 ? 'md:col-span-2' : ''}`}>
-              <VideoCard project={project} />
+        {/* ADS Section */}
+        {adsProjects.length > 0 && (
+          <div>
+            <div className="text-center mb-20">
+              <div className="inline-block mb-4">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-400 inline-block mr-3 align-middle" />
+                <span className="text-blue-400 text-xs uppercase tracking-[0.3em] font-[var(--font-body)]">Commercial</span>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-blue-400 inline-block ml-3 align-middle" />
+              </div>
+              <h2 className="text-5xl md:text-7xl font-[var(--font-heading)] italic text-white tracking-tight leading-[0.9] mb-6">
+                ADS
+              </h2>
+              <p className="text-white/40 font-[var(--font-body)] text-sm tracking-wide">
+                Advertisement & commercial works
+              </p>
             </div>
-          ))}
-        </div>
+            <VideoGrid projects={adsProjects} />
+          </div>
+        )}
 
         {/* Bottom artistic element */}
         <div className="flex items-center justify-center mt-20 gap-3">
