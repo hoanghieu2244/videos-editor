@@ -186,9 +186,6 @@ export default function Projects() {
           </div>
         )}
 
-      {/* Student Card Button - Removed per user request */
-      </div>
-
       {/* Video Modal */}
       <AnimatePresence>
         {selectedVideo && (
