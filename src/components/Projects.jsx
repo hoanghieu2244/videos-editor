@@ -197,3 +197,4 @@ export default function Projects() {
     </section>
   )
 }
+// Force Vercel rebuild - remove student card
