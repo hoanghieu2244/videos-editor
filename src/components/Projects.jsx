@@ -23,24 +23,30 @@ import { useState, useRef } from 'react'
  * ═══════════════════════════════════════════════════════════════
  */
 
+const getYouTubeID = (url) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+};
+
 const projects = [
   // ─── Featured Projects (hiện lớn, 2 cột) ─────────────
-  {
-    title: 'Nguyễn Thương Highlight',
-    desc: 'Cinematic highlight edit với transitions mượt mà và color grading đặc sắc.',
-    tags: ['Premiere Pro', 'After Effects', 'Color Grading'],
-    icon: Film,
-    video: '/videos/Nguyen_Thuong_08-12.mp4',
-    category: 'Featured Edit',
-    featured: true,
-  },
   {
     title: 'Poster Boi Visuals',
     desc: 'Các ấn phẩm visual và motion poster chuyển động độc đáo.',
     tags: ['After Effects', 'Motion Design', 'Poster'],
     icon: Wand2,
-    video: '/videos/Poster_Boi_comms.mov',
+    video: 'https://youtu.be/_0Kgh3KXOD0',
     category: 'Visuals',
+    featured: true,
+  },
+  {
+    title: 'Nguyễn Thương Highlight',
+    desc: 'Cinematic highlight edit với transitions mượt mà và color grading đặc sắc.',
+    tags: ['Premiere Pro', 'After Effects', 'Color Grading'],
+    icon: Film,
+    video: 'https://youtu.be/sK9A4SvIGg0',
+    category: 'Featured Edit',
     featured: true,
   },
 
@@ -50,7 +56,7 @@ const projects = [
     desc: 'Video montage kết hợp sound design chuyên nghiệp và nhịp điệu cuốn hút.',
     tags: ['Premiere Pro', 'DaVinci Resolve', 'Sound Design'],
     icon: Tv,
-    video: '/videos/JC.mp4',
+    video: 'https://youtu.be/ypJoaA_WQvA',
     category: 'Montage',
     featured: false,
   },
@@ -59,7 +65,7 @@ const projects = [
     desc: 'Video thương mại với kỹ xảo hình ảnh và phong cách dựng hiện đại.',
     tags: ['After Effects', 'Commercial', 'VFX'],
     icon: Clapperboard,
-    video: '/videos/y0KAM_comms_5.mp4',
+    video: 'https://youtu.be/Epp-XpuTreE',
     category: 'Commercial',
     featured: false,
   },
@@ -68,7 +74,7 @@ const projects = [
     desc: 'Video edit mang phong cách nghệ thuật với typography và color grading ấn tượng.',
     tags: ['Premiere Pro', 'Typography', 'Creative'],
     icon: Video,
-    video: '/videos/Rather_Lie.mp4',
+    video: 'https://youtu.be/FscC9nRFpVQ',
     category: 'Creative Edit',
     featured: false,
   },
@@ -77,7 +83,7 @@ const projects = [
     desc: 'Motion graphics và visual effects đồng bộ với âm nhạc, tạo hiệu ứng thị giác mạnh mẽ.',
     tags: ['After Effects', 'Motion Design', 'VFX'],
     icon: Sparkles,
-    video: '/videos/Happier_Comms.mp4',
+    video: 'https://youtu.be/zJT_Len7ud4',
     category: 'Motion Graphics',
     featured: false,
   },
@@ -86,7 +92,7 @@ const projects = [
     desc: 'Dự án thương mại với các hiệu ứng chuyển cảnh mượt mà và nội dung hấp dẫn.',
     tags: ['Premiere Pro', 'Commercial', 'Editing'],
     icon: Tv,
-    video: '/videos/Comms_01.mp4',
+    video: 'https://youtu.be/9FvZzqlcyOA',
     category: 'Commercial',
     featured: false,
   },
@@ -95,7 +101,7 @@ const projects = [
     desc: 'Dự án thương mại cho yOKAM với phong cách cắt ghép nhịp độ nhanh.',
     tags: ['Premiere Pro', 'Fast-paced', 'Promo'],
     icon: Clapperboard,
-    video: '/videos/y0KAM_comms_3.mp4',
+    video: 'https://youtu.be/iqNxfTRCjvQ',
     category: 'Commercial',
     featured: false,
   },
@@ -104,7 +110,7 @@ const projects = [
     desc: 'Dự án cá nhân thể hiện kỹ năng dựng video giải trí chuyên nghiệp.',
     tags: ['CapCut', 'Premiere Pro', 'Entertainment'],
     icon: Video,
-    video: '/videos/Hoang_hieu_zzz_comms_02.mp4',
+    video: 'https://youtu.be/RFPQnQbtgXM',
     category: 'Personal Project',
     featured: false,
   },
@@ -113,7 +119,7 @@ const projects = [
     desc: 'Phiên bản edit khác cho chiến dịch yOKAM với màu sắc và âm thanh tùy chỉnh.',
     tags: ['After Effects', 'Color Grading', 'Commercial'],
     icon: Sparkles,
-    video: '/videos/Comms_2_yOKAM.mp4',
+    video: 'https://youtu.be/TheQZWfPLAM',
     category: 'Commercial',
     featured: false,
   },
@@ -125,14 +131,20 @@ function VideoCard({ project, large = false, index }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
   const [hasError, setHasError] = useState(false)
+  const youtubeId = getYouTubeID(project.video)
+  const isYouTube = !!youtubeId
+  const [showModal, setShowModal] = useState(false)
 
   const togglePlay = () => {
+    if (isYouTube) {
+      setShowModal(true)
+      return
+    }
     if (!videoRef.current) return
     if (isPlaying && !isMuted) {
       videoRef.current.pause()
       setIsPlaying(false)
     } else {
-      // Khi click, luôn bật tiếng và play
       videoRef.current.muted = false
       setIsMuted(false)
       videoRef.current.play().catch(() => setHasError(true))
@@ -142,6 +154,10 @@ function VideoCard({ project, large = false, index }) {
 
   const toggleFullScreen = (e) => {
     e.stopPropagation()
+    if (isYouTube) {
+      setShowModal(true)
+      return
+    }
     if (!videoRef.current) return
     
     const el = videoRef.current
@@ -155,58 +171,74 @@ function VideoCard({ project, large = false, index }) {
   }
 
   return (
-    <div className={`group ${large ? '' : 'h-full'}`}>
-      {/* Video Frame */}
-      <div
-        className="video-frame cursor-pointer mb-5 relative"
-        onClick={togglePlay}
-      >
-        {/* Scanline decoration */}
-        <div className="scanline" />
-
-        {/* Volume/Play Indicator */}
-        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="liquid-glass rounded-full px-3 py-1.5 flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-white/80 font-medium">
-              {isPlaying && !isMuted ? 'Click to Pause' : 'Click for Sound'}
-            </span>
-          </div>
-        </div>
-
-        {/* Fullscreen Button */}
-        <button
-          onClick={toggleFullScreen}
-          title="Phóng to video"
-          className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 liquid-glass rounded-full p-2 hover:bg-white/20"
+    <>
+      <div className={`group ${large ? '' : 'h-full'}`}>
+        {/* Video Frame */}
+        <div
+          className="video-frame cursor-pointer mb-5 relative overflow-hidden"
+          onClick={togglePlay}
         >
-          <Maximize className="w-4 h-4 text-white" />
-        </button>
+          {/* Scanline decoration */}
+          <div className="scanline" />
 
-        {!hasError ? (
-          <video
-            ref={videoRef}
-            loop
-            muted={isMuted}
-            playsInline
-            preload="metadata"
-            onError={() => setHasError(true)}
-            onMouseEnter={() => {
-              if (videoRef.current && (!isPlaying || isMuted)) {
-                videoRef.current.muted = true
-                setIsMuted(true)
-                videoRef.current.play().catch(() => {})
-              }
-            }}
-            onMouseLeave={() => {
-              if (videoRef.current && (!isPlaying || isMuted)) {
-                videoRef.current.pause()
-                videoRef.current.currentTime = 0
-              }
-            }}
+          {/* Volume/Play Indicator */}
+          <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="liquid-glass rounded-full px-3 py-1.5 flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-widest text-white/80 font-medium">
+                {isYouTube ? 'Click to Watch' : (isPlaying && !isMuted ? 'Click to Pause' : 'Click for Sound')}
+              </span>
+            </div>
+          </div>
+
+          {/* Fullscreen/Play Button */}
+          <button
+            onClick={toggleFullScreen}
+            title={isYouTube ? "Xem trên YouTube" : "Phóng to video"}
+            className="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 liquid-glass rounded-full p-2 hover:bg-white/20"
           >
-            <source src={project.video} type="video/mp4" />
-          </video>
-        ) : null}
+            {isYouTube ? <ArrowUpRight className="w-4 h-4 text-white" /> : <Maximize className="w-4 h-4 text-white" />}
+          </button>
+
+          {isYouTube ? (
+            <div className="w-full h-full relative aspect-video">
+              <img 
+                src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onError={(e) => {
+                  e.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+                }}
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
+            </div>
+          ) : (
+            !hasError ? (
+              <video
+                ref={videoRef}
+                loop
+                muted={isMuted}
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                onError={() => setHasError(true)}
+                onMouseEnter={() => {
+                  if (videoRef.current && (!isPlaying || isMuted)) {
+                    videoRef.current.muted = true
+                    setIsMuted(true)
+                    videoRef.current.play().catch(() => {})
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (videoRef.current && (!isPlaying || isMuted)) {
+                    videoRef.current.pause()
+                    videoRef.current.currentTime = 0
+                  }
+                }}
+              >
+                <source src={project.video} type="video/mp4" />
+              </video>
+            ) : null
+          )}
 
         {/* Placeholder khi chưa có video */}
         {hasError && (
@@ -324,6 +356,31 @@ function VideoCard({ project, large = false, index }) {
         </div>
       </div>
     </div>
+      {/* Modal for YouTube */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 md:p-10"
+          onClick={() => setShowModal(false)}
+        >
+          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            <iframe
+              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+              title={project.title}
+              className="w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+            <button 
+              className="absolute top-4 right-4 liquid-glass rounded-full p-2 text-white/70 hover:text-white transition-colors"
+              onClick={() => setShowModal(false)}
+            >
+              <ArrowUpRight className="w-6 h-6 rotate-45" />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
