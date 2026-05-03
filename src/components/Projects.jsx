@@ -374,14 +374,14 @@ function VideoCard({ project, large = false, index }) {
           onClick={() => setShowModal(false)}
         >
           <div className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            <iframe
-              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
-              title={project.title}
-              className="w-full h-full"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&vq=hd1080&hd=1&rel=0`}
+                title={project.title}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
             <button 
               className="absolute top-4 right-4 liquid-glass rounded-full p-2 text-white/70 hover:text-white transition-colors"
               onClick={() => setShowModal(false)}
