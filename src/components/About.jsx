@@ -29,7 +29,7 @@ export default function About() {
 
   return (
     <section id="about" className="relative overflow-hidden">
-      <HlsVideo src={START_VIDEO_URL} className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.3 }} />
+      <HlsVideo src={START_VIDEO_URL} className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.2 }} />
 
       <div className="absolute top-0 left-0 right-0 z-[1] pointer-events-none" style={{ height: 200, background: 'linear-gradient(to top, transparent, hsl(var(--background)))' }} />
       <div className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none" style={{ height: 200, background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }} />

@@ -22,7 +22,7 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative overflow-hidden" style={{ height: '100vh' }}>
-      {/* Video Background with Overlay */}
+      {/* Video Background with Dark Overlay */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -33,10 +33,10 @@ export default function Hero() {
         >
           <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[hsl(var(--background)/0.6)] backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-black/70" />
       </div>
 
-      {/* Gradient Overlays */}
+      {/* Gradient Overlays - Dark fade to background */}
       <div
         className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
         style={{
