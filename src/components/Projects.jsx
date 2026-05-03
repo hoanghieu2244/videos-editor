@@ -201,12 +201,11 @@ function VideoCard({ project, large = false, index }) {
           </button>
 
           {isYouTube ? (
-            <div className="w-full h-full relative aspect-video bg-[#111]">
+            <div className="w-full h-full relative aspect-video">
               <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}?vq=hd1080&hd=1&rel=0&modestbranding=1&showinfo=0`}
+                src={`https://www.youtube.com/embed/${youtubeId}?vq=hd1080&hd=1&rel=0&controls=1&modestbranding=1`}
                 title={project.title}
-                className="w-full h-full"
-                frameBorder="0"
+                className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
