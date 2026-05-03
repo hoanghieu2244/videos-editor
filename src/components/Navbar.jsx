@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence } from 'motion'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import logoIcon from '../assets/logo-icon.png'
 

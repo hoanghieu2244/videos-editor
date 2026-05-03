@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+import { motion, useInView } from 'motion'
 import { ArrowUpRight, Mail, Phone, MapPin, ExternalLink, Globe } from 'lucide-react'
 import HlsVideo from './HlsVideo'
 

@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { motion } from 'motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
