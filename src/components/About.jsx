@@ -2,8 +2,7 @@ import { Clapperboard, MonitorPlay, GraduationCap, Sparkles } from 'lucide-react
 import SectionReveal from './SectionReveal'
 import HlsVideo from './HlsVideo'
 
-const START_VIDEO_URL =
-  'https://stream.mux.com/9JXDljEVWYwWu01PUkAemafDugK89o01BR6zqJ3aS9u00A.m3u8'
+const START_VIDEO_URL = 'https://stream.mux.com/9JXDljEVWYwWu01PUkAemafDugK89o01BR6zqJ3aS9u00A.m3u8'
 
 const highlights = [
   {
@@ -54,7 +53,7 @@ export default function About() {
         className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
         style={{
           height: 200,
-          background: 'linear-gradient(to top, transparent, black)',
+          background: 'linear-gradient(to top, transparent, hsl(var(--background)))',
         }}
       />
 
@@ -63,7 +62,7 @@ export default function About() {
         className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
         style={{
           height: 200,
-          background: 'linear-gradient(to bottom, transparent, black)',
+          background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))',
         }}
       />
 
@@ -74,14 +73,14 @@ export default function About() {
           <SectionReveal>
             <div className="text-center mb-16">
               <div className="inline-block liquid-glass rounded-full px-3.5 py-1 mb-6">
-                <span className="text-xs font-medium text-white font-[var(--font-body)]">
+                <span className="text-xs font-medium font-[var(--font-body)] text-[hsl(var(--foreground))]">
                   Giới thiệu
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-[var(--font-heading)] italic text-white tracking-tight leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-[var(--font-heading)] italic text-[hsl(var(--foreground))] tracking-tight leading-tight mb-6">
                 Xin chào, tôi là Hoàng Văn Hiếu
               </h2>
-              <p className="text-white/70 font-[var(--font-body)] font-light text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-[hsl(var(--foreground))]/70 font-[var(--font-body)] font-light text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
                 Một Video Editor chuyên nghiệp đến từ Thái Nguyên. Với hơn 2 năm kinh nghiệm trong lĩnh vực sáng tạo nội dung số và hậu kỳ video, tôi luôn ưu tiên kết hợp tư duy nghệ thuật và kỹ năng kể chuyện bằng hình ảnh để tạo ra những sản phẩm giải trí vượt kỳ vọng.
               </p>
             </div>
@@ -95,12 +94,12 @@ export default function About() {
                 <SectionReveal key={i} delay={i * 0.1}>
                   <div className="liquid-glass rounded-2xl p-6 flex flex-col gap-4 h-full">
                     <div className="liquid-glass-strong rounded-full w-10 h-10 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-white" />
+                      <Icon className="w-5 h-5 text-[hsl(var(--foreground))]" />
                     </div>
-                    <h3 className="text-white font-[var(--font-body)] font-semibold text-base">
+                    <h3 className="text-[hsl(var(--foreground))] font-[var(--font-body)] font-semibold text-base">
                       {item.title}
                     </h3>
-                    <p className="text-white/60 font-[var(--font-body)] font-light text-sm leading-relaxed">
+                    <p className="text-[hsl(var(--foreground))]/60 font-[var(--font-body)] font-light text-sm leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -112,14 +111,14 @@ export default function About() {
           {/* Tools & Skills */}
           <SectionReveal delay={0.2}>
             <div className="text-center">
-              <p className="text-white/50 font-[var(--font-body)] font-light text-xs uppercase tracking-widest mb-6">
+              <p className="text-[hsl(var(--foreground))]/50 font-[var(--font-body)] font-light text-xs uppercase tracking-widest mb-6">
                 Công cụ & Kỹ năng
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {tools.map((tool) => (
                   <span
                     key={tool}
-                    className="liquid-glass rounded-full px-4 py-2 text-sm text-white/80 font-[var(--font-body)] font-light"
+                    className="liquid-glass rounded-full px-4 py-2 text-sm text-[hsl(var(--foreground))]/80 font-[var(--font-body)] font-light"
                   >
                     {tool}
                   </span>
