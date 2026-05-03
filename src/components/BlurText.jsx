@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion } from 'motion'
+import { motion } from 'motion/react'
 
 export default function BlurText({
   text = '',

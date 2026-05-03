@@ -1,4 +1,4 @@
-import { motion, useInView } from 'motion'
+import { motion, useInView } from 'motion/react'
 import { Clapperboard, MonitorPlay, GraduationCap, Sparkles } from 'lucide-react'
 import { useRef } from 'react'
 import HlsVideo from './HlsVideo'

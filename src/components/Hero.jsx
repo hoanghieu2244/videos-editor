@@ -1,4 +1,4 @@
-import { motion, useInView, useAnimation } from 'motion'
+import { motion, useInView, useAnimation } from 'motion/react'
 import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import BlurText from './BlurText'

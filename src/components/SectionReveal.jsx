@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'motion'
+import { motion, useInView } from 'motion/react'
 
 export default function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useRef(null)
