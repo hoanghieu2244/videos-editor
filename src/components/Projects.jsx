@@ -114,8 +114,6 @@ function VideoModal({ project, onClose }) {
 
 export default function Projects() {
   const [showAllVideos, setShowAllVideos] = useState(false)
-  const [showStudentCard, setShowStudentCard] = useState(false)
-  const [selectedVideo, setSelectedVideo] = useState(null)
 
   return (
     <section id="projects" className="py-32 px-8 relative">
@@ -188,32 +186,7 @@ export default function Projects() {
           </div>
         )}
 
-        {/* Student Card Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mt-20"
-        >
-          <motion.button
-            onClick={() => setShowStudentCard(true)}
-            className="relative group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            data-hover
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/0.5)] rounded-2xl blur opacity-25 group-hover:opacity-75 transition" />
-            <div className="relative px-8 py-4 bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[hsl(var(--primary)/0.1)] border border-[hsl(var(--primary)/0.3)] flex items-center justify-center">
-                <span className="text-2xl">👤</span>
-              </div>
-              <div className="text-left">
-                <p className="text-[hsl(var(--foreground))] font-medium text-sm">Thẻ sinh viên</p>
-                <p className="text-[hsl(var(--foreground)/0.4)] text-xs">Click để xem thông tin</p>
-              </div>
-            </div>
-          </motion.button>
-        </motion.div>
+      {/* Student Card Button - Removed per user request */
       </div>
 
       {/* Video Modal */}
@@ -223,52 +196,7 @@ export default function Projects() {
         )}
       </AnimatePresence>
 
-      {/* Student Card Modal */}
-      <AnimatePresence>
-        {showStudentCard && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[hsl(var(--background)/0.95)] backdrop-blur-xl flex items-center justify-center p-6"
-            onClick={() => setShowStudentCard(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="relative max-w-sm w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowStudentCard(false)}
-                className="absolute -top-4 -right-4 p-2 rounded-full bg-[hsl(var(--card))] border border-[hsl(var(--border))] hover:bg-[hsl(var(--primary)/0.1)] text-[hsl(var(--foreground))] transition z-10"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <div className="bg-gradient-to-br from-[hsl(var(--card))] to-[hsl(var(--background))] rounded-3xl p-[1px]">
-                <div className="bg-[hsl(var(--card))] rounded-3xl p-8 text-center border border-[hsl(var(--border))]">
-                  {/* Avatar */}
-                  <div className="w-32 h-32 rounded-2xl bg-[hsl(var(--primary)/0.1)] border border-[hsl(var(--primary)/0.3)] mx-auto mb-6 flex items-center justify-center overflow-hidden">
-                    <img
-                      src="/avatar.jpg"
-                      alt="Avatar"
-                      className="w-full h-full object-cover"
-                      onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block' }}
-                    />
-                    <span className="text-6xl hidden">🖼️</span>
-                  </div>
-                  <h3 className="text-2xl font-[var(--font-heading)] italic text-[hsl(var(--foreground))] mb-2">Hoàng Văn Hiếu</h3>
-                  <p className="text-[hsl(var(--foreground)/0.6)] text-sm mb-6">Video Editor & Motion Designer</p>
-                  <div className="h-px bg-gradient-to-r from-transparent via-[hsl(var(--border))] to-transparent mb-6" />
-                  <p className="text-[hsl(var(--foreground)/0.4)] text-xs">Thêm ảnh đại diện vào <code className="text-[hsl(var(--primary))]">public/avatar.jpg</code></p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Student Card Modal - Removed per user request */
     </section>
   )
 }
