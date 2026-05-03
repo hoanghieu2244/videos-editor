@@ -20,12 +20,34 @@ const getYouTubeID = (url) => {
 function VideoCard({ project }) {
   const youtubeId = getYouTubeID(project.video)
   return (
-    <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] p-[1px]">
-      <div className="relative rounded-2xl overflow-hidden bg-black">
-        {/* Glow effect on hover */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700" />
+    <div 
+      className="group relative perspective-1000"
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      <div 
+        className="relative rounded-2xl overflow-hidden bg-black transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+        style={{ 
+          transform: 'rotateX(0deg) rotateY(0deg)',
+          transition: 'transform 0.5s ease-out'
+        }}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const centerX = rect.width / 2
+          const centerY = rect.height / 2
+          const rotateX = ((y - centerY) / centerY) * -5
+          const rotateY = ((x - centerX) / centerX) * 5
+          e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
+        }}
+      >
+        {/* Animated border gradient */}
+        <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 animate-spin-slow" />
         
-        <div className="relative aspect-video">
+        <div className="relative aspect-video bg-black rounded-2xl overflow-hidden">
           <iframe
             src={`https://www.youtube.com/embed/${youtubeId}?vq=hd1080&hd=1&rel=0&modestbranding=1`}
             className="w-full h-full"
@@ -35,8 +57,8 @@ function VideoCard({ project }) {
           />
         </div>
 
-        {/* Bottom gradient line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+        {/* Bottom glow line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   )
