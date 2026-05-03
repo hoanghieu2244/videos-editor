@@ -202,24 +202,13 @@ function VideoCard({ project, large = false, index }) {
 
           {isYouTube ? (
             <div className="w-full h-full relative aspect-video bg-[#111]">
-              <img 
-                src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
-                alt={project.title}
-                className="w-full h-full object-cover"
-                loading="eager"
-                onError={(e) => {
-                  const sources = [
-                    `https://img.youtube.com/vi/${youtubeId}/sddefault.jpg`,
-                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
-                  ]
-                  const currentSrc = e.target.src
-                  const nextIndex = sources.findIndex(s => currentSrc.includes(s.split('/').pop())) + 1
-                  if (nextIndex < sources.length) {
-                    e.target.src = sources[nextIndex]
-                  } else {
-                    e.target.style.display = 'none'
-                  }
-                }}
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}?vq=hd1080&hd=1&rel=0&modestbranding=1&showinfo=0`}
+                title={project.title}
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
               />
             </div>
           ) : (
