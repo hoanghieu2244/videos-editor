@@ -35,10 +35,15 @@ function VideoCard({ project }) {
 export default function Projects() {
   return (
     <section className="py-20 px-8">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project, i) => (
-          <VideoCard key={i} project={project} />
-        ))}
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-[var(--font-heading)] italic text-white text-center mb-12">
+          Sản phẩm
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project, i) => (
+            <VideoCard key={i} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   )
