@@ -201,14 +201,22 @@ function VideoCard({ project, large = false, index }) {
           </button>
 
           {isYouTube ? (
-            <div className="w-full h-full relative aspect-video bg-black">
+            <div className="w-full h-full relative aspect-video bg-[#111]">
               <img 
                 src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
-                  e.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
-                  e.target.onerror = () => {
+                  const sources = [
+                    `https://img.youtube.com/vi/${youtubeId}/sddefault.jpg`,
+                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
+                    `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`
+                  ]
+                  const currentSrc = e.target.src
+                  const nextIndex = sources.findIndex(s => currentSrc.includes(s.split('/').pop())) + 1
+                  if (nextIndex < sources.length) {
+                    e.target.src = sources[nextIndex]
+                  } else {
                     e.target.style.display = 'none'
                   }
                 }}
@@ -257,7 +265,7 @@ function VideoCard({ project, large = false, index }) {
 
         {/* Play/Pause overlay */}
         {!hasError && !isPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center z-[1] bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 flex items-center justify-center z-[1] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div
               className="w-14 h-14 rounded-full flex items-center justify-center"
               style={{
