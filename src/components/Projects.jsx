@@ -34,7 +34,7 @@ function VideoCard({ project }) {
 
 export default function Projects() {
   return (
-    <section className="py-20 px-8">
+    <section id="projects" className="py-20 px-8">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-[var(--font-heading)] italic text-white text-center mb-12">
           Sản phẩm
