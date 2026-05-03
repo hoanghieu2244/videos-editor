@@ -205,12 +205,12 @@ function VideoCard({ project, large = false, index }) {
               <img 
                 src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
                 alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
+                loading="eager"
                 onError={(e) => {
                   const sources = [
                     `https://img.youtube.com/vi/${youtubeId}/sddefault.jpg`,
-                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
-                    `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`
+                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
                   ]
                   const currentSrc = e.target.src
                   const nextIndex = sources.findIndex(s => currentSrc.includes(s.split('/').pop())) + 1
