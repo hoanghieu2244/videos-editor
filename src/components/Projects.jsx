@@ -24,9 +24,10 @@ import { useState, useRef } from 'react'
  */
 
 const getYouTubeID = (url) => {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  if (!url) return null;
+  const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
   const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
+  return match ? match[1] : null;
 };
 
 const projects = [
@@ -200,16 +201,18 @@ function VideoCard({ project, large = false, index }) {
           </button>
 
           {isYouTube ? (
-            <div className="w-full h-full relative aspect-video">
+            <div className="w-full h-full relative aspect-video bg-black">
               <img 
                 src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
                   e.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+                  e.target.onerror = () => {
+                    e.target.style.display = 'none'
+                  }
                 }}
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
             </div>
           ) : (
             !hasError ? (
