@@ -6,7 +6,7 @@ export default function StudentCard() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed top-[calc(33.33%-80px)] left-6 z-[90] group cursor-pointer">
+    <div className="fixed top-6 left-6 z-[90] group cursor-pointer">
       {/* Close button */}
       <button
         onClick={() => setIsVisible(false)}

@@ -1,19 +1,34 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+import { useRef, useEffect, useState } from 'react'
 
 export default function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1, rootMargin: '-80px' }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? 'translateY(0)' : 'translateY(40px)',
+        transition: `opacity 0.7s ${delay}s ease, transform 0.7s ${delay}s ease`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

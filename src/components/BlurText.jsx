@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from 'react'
-import { motion } from 'motion/react'
 
 export default function BlurText({
   text = '',
@@ -25,57 +24,33 @@ export default function BlurText({
     return () => observer.disconnect()
   }, [])
 
-  const getInitial = () => {
+  const getInitialTransform = () => {
     switch (direction) {
-      case 'bottom':
-        return { filter: 'blur(10px)', opacity: 0, y: 50 }
-      case 'top':
-        return { filter: 'blur(10px)', opacity: 0, y: -50 }
-      case 'left':
-        return { filter: 'blur(10px)', opacity: 0, x: -50 }
-      case 'right':
-        return { filter: 'blur(10px)', opacity: 0, x: 50 }
-      default:
-        return { filter: 'blur(10px)', opacity: 0, y: 50 }
+      case 'bottom': return 'translateY(50px)'
+      case 'top': return 'translateY(-50px)'
+      case 'left': return 'translateX(-50px)'
+      case 'right': return 'translateX(50px)'
+      default: return 'translateY(50px)'
     }
   }
 
   return (
     <p ref={ref} className={className}>
       {words.map((word, i) => (
-        <motion.span
+        <span
           key={i}
-          initial={getInitial()}
-          animate={
-            inView
-              ? [
-                  {
-                    filter: 'blur(5px)',
-                    opacity: 0.5,
-                    ...(direction === 'bottom' || direction === 'top'
-                      ? { y: -5 }
-                      : { x: direction === 'left' ? 5 : -5 }),
-                  },
-                  {
-                    filter: 'blur(0px)',
-                    opacity: 1,
-                    ...(direction === 'bottom' || direction === 'top'
-                      ? { y: 0 }
-                      : { x: 0 }),
-                  },
-                ]
-              : getInitial()
-          }
-          transition={{
-            duration: 0.35,
-            delay: i * (delay / 1000),
-            times: [0, 0.5, 1],
+          style={{
+            display: 'inline-block',
+            willChange: 'filter, opacity, transform',
+            filter: inView ? 'blur(0px)' : 'blur(10px)',
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'none' : getInitialTransform(),
+            transition: `filter 0.35s ${i * delay}ms, opacity 0.35s ${i * delay}ms, transform 0.35s ${i * delay}ms`,
+            marginRight: i < words.length - 1 ? '0.25em' : 0,
           }}
-          style={{ display: 'inline-block', willChange: 'filter, opacity, transform' }}
         >
           {word}
-          {i < words.length - 1 && '\u00A0'}
-        </motion.span>
+        </span>
       ))}
     </p>
   )
